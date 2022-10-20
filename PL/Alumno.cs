@@ -10,7 +10,9 @@ namespace PL
     {
         public static void Add()
         {
-            ML.Alumno alumno = new ML.Alumno();
+            ML.Alumno alumno = new ML.Alumno(); //Instancia
+
+            
 
             Console.WriteLine("Por favor ingrese los datos del alumno");
             Console.WriteLine("Nombre: ");
@@ -24,7 +26,14 @@ namespace PL
             Console.WriteLine("Genero (M-F):  ");
             alumno.Genero = char.Parse(Console.ReadLine());
 
-            BL.Alumno.Add(alumno);
+            //llenamos el objeto de informacion 
+
+            ML.Result result = BL.Alumno.Add(alumno);//enviamos el objeto con informacion 
+
+            if (result.Correct)
+            {
+                Console.WriteLine("Mensaeje: "+ result.Message);
+            }
         }
     }
 }
