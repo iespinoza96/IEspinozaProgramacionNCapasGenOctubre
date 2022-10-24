@@ -26,10 +26,15 @@ namespace PL
             Console.WriteLine("Genero (M-F):  ");
             alumno.Genero = char.Parse(Console.ReadLine());
 
+            Console.WriteLine("Ingrese el semestre:  ");
+            alumno.Semestre = new ML.Semestre();
+            alumno.Semestre.IdSemestre = byte.Parse(Console.ReadLine());
+            //alumno.Genero = char.Parse(Console.ReadLine());
+
             //llenamos el objeto de informacion 
 
-            ML.Result result = BL.Alumno.Add(alumno);//enviamos el objeto con informacion 
-            //ML.Result result = BL.Alumno.AddSP(alumno);//enviamos el objeto con informacion 
+            //ML.Result result = BL.Alumno.Add(alumno);//enviamos el objeto con informacion 
+            ML.Result result = BL.Alumno.AddSP(alumno);//enviamos el objeto con informacion 
 
             if (result.Correct)
             {
@@ -51,6 +56,7 @@ namespace PL
                     Console.WriteLine("El apellido materno del alumno es:" + alumno.ApellidoMaterno);
                     Console.WriteLine("La fecha de nacimiento del alumno es:" + alumno.FechaNacimiento);
                     Console.WriteLine("El genero del alumno es:" + alumno.Genero);
+                    Console.WriteLine("El Semestre del alumno es:" + alumno.Semestre.IdSemestre);
                     Console.WriteLine("----------------------------------------------------------");
                 }
             }
