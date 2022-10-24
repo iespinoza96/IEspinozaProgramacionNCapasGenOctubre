@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ML;
+using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Data;
@@ -14,18 +15,18 @@ namespace BL
         public static ML.Result Add(ML.Alumno alumno)
         {
             ML.Result result = new ML.Result();
-			try
-			{
-				using (SqlConnection context = new SqlConnection(DL.Conexion.GetConexion()) )
-				{
-					string query = "INSERT INTO[Alumno]([Nombre],[ApellidoPaterno],[ApellidoMaterno],[FechaNacimiento],[Genero])VALUES(@Nombre, @ApellidoPaterno, @ApellidoMaterno, @FechaNacimiento, @Genero)";
+            try
+            {
+                using (SqlConnection context = new SqlConnection(DL.Conexion.GetConexion()))
+                {
+                    string query = "INSERT INTO[Alumno]([Nombre],[ApellidoPaterno],[ApellidoMaterno],[FechaNacimiento],[Genero])VALUES(@Nombre, @ApellidoPaterno, @ApellidoMaterno, @FechaNacimiento, @Genero)";
 
-					using(SqlCommand cmd = new SqlCommand())
-					{
-						cmd.Connection = context; //conexion
-						cmd.CommandText = query; //query
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        cmd.Connection = context; //conexion
+                        cmd.CommandText = query; //query
 
-						context.Open();
+                        context.Open();
 
                         SqlParameter[] collection = new SqlParameter[5];
 
@@ -48,7 +49,7 @@ namespace BL
 
                         int rowsAffected = cmd.ExecuteNonQuery();
 
-                        if (rowsAffected >=1)
+                        if (rowsAffected >= 1)
                         {
                             result.Message = "Se agrego el alumno correctamente";
                         }
@@ -56,17 +57,80 @@ namespace BL
 
                 }
                 result.Correct = true;
-			}//codigo que puede causar una excepcion 
-			catch (Exception ex)
-			{
+            }//codigo que puede causar una excepcion 
+            catch (Exception ex)
+            {
                 result.Correct = false;
                 result.Ex = ex;
                 result.Message = "Ocurrio un error al insertar el alumno" + result.Ex;
 
-				throw;
-			}//manejo de excepciones 
+                throw;
+            }//manejo de excepciones 
             return result;
 
         }
+
+        public static ML.Result GetAll()
+        {
+            ML.Result result = new ML.Result();
+            try
+            {
+                using (SqlConnection context = new SqlConnection(DL.Conexion.GetConexion()))
+                {
+                    string querySP = "AlumnoGetAll";
+
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        cmd.Connection = context; //conexion
+                        cmd.CommandText = querySP; //query
+                        cmd.CommandType = CommandType.StoredProcedure;//SP
+
+                        context.Open();
+
+                        DataTable alumnoTable = new DataTable();
+
+                        SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(cmd);
+
+                        sqlDataAdapter.Fill(alumnoTable);
+
+                        if (alumnoTable.Rows.Count > 0)
+                        {
+                            result.Objects = new List<object>();
+
+                            foreach (DataRow row in alumnoTable.Rows)
+                            {
+                                ML.Alumno alumno = new ML.Alumno();
+
+                                alumno.IdAlumno = int.Parse(row[0].ToString());
+                                alumno.Nombre = row[1].ToString();
+                                alumno.ApellidoPaterno = row[2].ToString();
+                                alumno.ApellidoMaterno = row[3].ToString();
+                                alumno.FechaNacimiento = DateTime.Parse(row[4].ToString());
+                                alumno.Genero = char.Parse(row[5].ToString());
+
+                                result.Objects.Add(alumno); //boxing y unboxing
+
+                            }
+
+                        }
+
+                    }
+
+                }
+                result.Correct = true;
+            }//codigo que puede causar una excepcion 
+            catch (Exception ex)
+            {
+                result.Correct = false;
+                result.Ex = ex;
+                result.Message = "Ocurrio un error al insertar el alumno" + result.Ex;
+
+                throw;
+            }//manejo de excepciones 
+         
+            return result;
+        }
+
+      
     }
 }

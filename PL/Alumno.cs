@@ -29,10 +29,30 @@ namespace PL
             //llenamos el objeto de informacion 
 
             ML.Result result = BL.Alumno.Add(alumno);//enviamos el objeto con informacion 
+            //ML.Result result = BL.Alumno.AddSP(alumno);//enviamos el objeto con informacion 
 
             if (result.Correct)
             {
                 Console.WriteLine("Mensaeje: "+ result.Message);
+            }
+        }
+
+        public static void GetAll()
+        {
+            ML.Result result = BL.Alumno.GetAll();
+
+            if (result.Correct)
+            {
+                foreach (ML.Alumno alumno in result.Objects)
+                {
+                    Console.WriteLine("El id del alumno es:" + alumno.IdAlumno);
+                    Console.WriteLine("El nombre del alumno es:" + alumno.Nombre);
+                    Console.WriteLine("El apellido paterno del alumno es:" + alumno.ApellidoPaterno);
+                    Console.WriteLine("El apellido materno del alumno es:" + alumno.ApellidoMaterno);
+                    Console.WriteLine("La fecha de nacimiento del alumno es:" + alumno.FechaNacimiento);
+                    Console.WriteLine("El genero del alumno es:" + alumno.Genero);
+                    Console.WriteLine("----------------------------------------------------------");
+                }
             }
         }
     }
