@@ -214,7 +214,7 @@ namespace BL
 
                         context.Open();
 
-                        SqlParameter[] collection = new SqlParameter[6];
+                        SqlParameter[] collection = new SqlParameter[1];
 
                         collection[0] = new SqlParameter("IdAlumno", SqlDbType.Int);
                         collection[0].Value = idAlumno;
@@ -230,19 +230,19 @@ namespace BL
                         if (alumnoTable.Rows.Count > 0)
                         {
                             //result.Objects = new List<object>();
-
+                            DataRow row = alumnoTable.Rows[0];
 
                             ML.Alumno alumno = new ML.Alumno();
 
-                            //alumno.IdAlumno = int.Parse(row[0].ToString());
-                            //alumno.Nombre = row[1].ToString();
-                            //alumno.ApellidoPaterno = row[2].ToString();
-                            //alumno.ApellidoMaterno = row[3].ToString();
-                            //alumno.FechaNacimiento = row[4].ToString();
-                            //alumno.Genero = char.Parse(row[5].ToString());
+                            alumno.IdAlumno = int.Parse(row[0].ToString());
+                            alumno.Nombre = row[1].ToString();
+                            alumno.ApellidoPaterno = row[2].ToString();
+                            alumno.ApellidoMaterno = row[3].ToString();
+                            alumno.FechaNacimiento = row[4].ToString();
+                            alumno.Genero = char.Parse(row[5].ToString());
 
-                            //alumno.Semestre = new ML.Semestre();
-                            //alumno.Semestre.IdSemestre = byte.Parse(row[6].ToString());
+                            alumno.Semestre = new ML.Semestre();
+                            alumno.Semestre.IdSemestre = byte.Parse(row[6].ToString());
 
                             //result.Objects.Add(alumno); //boxing y unboxing
 

@@ -75,17 +75,17 @@ namespace PL
 
             if (result.Correct)
             {
-                //foreach (ML.Alumno alumno in result.Objects)
-                //{
-                //    Console.WriteLine("El id del alumno es:" + alumno.IdAlumno);
-                //    Console.WriteLine("El nombre del alumno es:" + alumno.Nombre);
-                //    Console.WriteLine("El apellido paterno del alumno es:" + alumno.ApellidoPaterno);
-                //    Console.WriteLine("El apellido materno del alumno es:" + alumno.ApellidoMaterno);
-                //    Console.WriteLine("La fecha de nacimiento del alumno es:" + alumno.FechaNacimiento);
-                //    Console.WriteLine("El genero del alumno es:" + alumno.Genero);
-                //    Console.WriteLine("El Semestre del alumno es:" + alumno.Semestre.IdSemestre);
-                //    Console.WriteLine("----------------------------------------------------------");
-                //}
+                alumno = (ML.Alumno)result.Object; // unboxing 
+
+                Console.WriteLine("El id del alumno es:" + alumno.IdAlumno);
+                Console.WriteLine("El nombre del alumno es:" + alumno.Nombre);
+                Console.WriteLine("El apellido paterno del alumno es:" + alumno.ApellidoPaterno);
+                Console.WriteLine("El apellido materno del alumno es:" + alumno.ApellidoMaterno);
+                Console.WriteLine("La fecha de nacimiento del alumno es:" + alumno.FechaNacimiento);
+                Console.WriteLine("El genero del alumno es:" + alumno.Genero);
+                Console.WriteLine("El Semestre del alumno es:" + alumno.Semestre.IdSemestre);
+                Console.WriteLine("----------------------------------------------------------");
+
             }
         }
     }
