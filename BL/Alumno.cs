@@ -98,7 +98,7 @@ namespace BL
                         collection[2] = new SqlParameter("ApellidoMaterno", SqlDbType.VarChar);
                         collection[2].Value = alumno.ApellidoMaterno;
 
-                        collection[3] = new SqlParameter("FechaNacimiento", SqlDbType.Date);
+                        collection[3] = new SqlParameter("FechaNacimiento", SqlDbType.VarChar);
                         collection[3].Value = alumno.FechaNacimiento;
 
                         collection[4] = new SqlParameter("Genero", SqlDbType.Char);
@@ -167,8 +167,9 @@ namespace BL
                                 alumno.Nombre = row[1].ToString();
                                 alumno.ApellidoPaterno = row[2].ToString();
                                 alumno.ApellidoMaterno = row[3].ToString();
-                                alumno.FechaNacimiento = DateTime.Parse(row[4].ToString());
+                                alumno.FechaNacimiento = row[4].ToString();
                                 alumno.Genero = char.Parse(row[5].ToString());
+
                                 alumno.Semestre = new ML.Semestre();
                                 alumno.Semestre.IdSemestre = byte.Parse(row[6].ToString());
 
@@ -191,10 +192,85 @@ namespace BL
 
                 throw;
             }//manejo de excepciones 
-         
+
             return result;
         }
 
-      
+        public static ML.Result GetById(int idAlumno)
+        {
+            ML.Result result = new ML.Result();
+            try
+            {
+                using (SqlConnection context = new SqlConnection(DL.Conexion.GetConexion()))
+                {
+                    string querySP = "AlumnoGetById";
+
+
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        cmd.Connection = context; //conexion
+                        cmd.CommandText = querySP; //query
+                        cmd.CommandType = CommandType.StoredProcedure;//SP
+
+                        context.Open();
+
+                        SqlParameter[] collection = new SqlParameter[6];
+
+                        collection[0] = new SqlParameter("IdAlumno", SqlDbType.Int);
+                        collection[0].Value = idAlumno;
+
+                        cmd.Parameters.AddRange(collection);
+
+                        DataTable alumnoTable = new DataTable();
+
+                        SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(cmd);
+
+                        sqlDataAdapter.Fill(alumnoTable);
+
+                        if (alumnoTable.Rows.Count > 0)
+                        {
+                            //result.Objects = new List<object>();
+
+
+                            ML.Alumno alumno = new ML.Alumno();
+
+                            //alumno.IdAlumno = int.Parse(row[0].ToString());
+                            //alumno.Nombre = row[1].ToString();
+                            //alumno.ApellidoPaterno = row[2].ToString();
+                            //alumno.ApellidoMaterno = row[3].ToString();
+                            //alumno.FechaNacimiento = row[4].ToString();
+                            //alumno.Genero = char.Parse(row[5].ToString());
+
+                            //alumno.Semestre = new ML.Semestre();
+                            //alumno.Semestre.IdSemestre = byte.Parse(row[6].ToString());
+
+                            //result.Objects.Add(alumno); //boxing y unboxing
+
+                            result.Object = alumno;//boxing y unboxing
+
+
+
+                        }
+
+                    }
+
+                }
+                result.Correct = true;
+
+
+            }//codigo que puede causar una excepcion 
+            catch (Exception ex)
+            {
+                result.Correct = false;
+                result.Ex = ex;
+                result.Message = "Ocurrio un error al insertar el alumno" + result.Ex;
+
+                throw;
+            }//manejo de excepciones 
+
+            return result;
+        }
+
+
     }
 }

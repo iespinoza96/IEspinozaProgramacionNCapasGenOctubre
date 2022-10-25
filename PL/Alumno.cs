@@ -22,7 +22,7 @@ namespace PL
             Console.WriteLine("Apellido Materno: ");
             alumno.ApellidoMaterno = Console.ReadLine();
             Console.WriteLine("Fecha Nacimiento (yyyy-MM-dd): ");
-            alumno.FechaNacimiento = DateTime.Parse(Console.ReadLine());
+            alumno.FechaNacimiento = Console.ReadLine();
             Console.WriteLine("Genero (M-F):  ");
             alumno.Genero = char.Parse(Console.ReadLine());
 
@@ -59,6 +59,33 @@ namespace PL
                     Console.WriteLine("El Semestre del alumno es:" + alumno.Semestre.IdSemestre);
                     Console.WriteLine("----------------------------------------------------------");
                 }
+            }
+        }
+
+        public static void GetById()
+        {
+            ML.Alumno alumno = new ML.Alumno(); //Instancia
+
+
+
+            Console.WriteLine("Por favor ingrese el id del alumno");
+            Console.WriteLine("IdAlumno: ");
+            alumno.IdAlumno = int.Parse(Console.ReadLine());
+            ML.Result result = BL.Alumno.GetById(alumno.IdAlumno);
+
+            if (result.Correct)
+            {
+                //foreach (ML.Alumno alumno in result.Objects)
+                //{
+                //    Console.WriteLine("El id del alumno es:" + alumno.IdAlumno);
+                //    Console.WriteLine("El nombre del alumno es:" + alumno.Nombre);
+                //    Console.WriteLine("El apellido paterno del alumno es:" + alumno.ApellidoPaterno);
+                //    Console.WriteLine("El apellido materno del alumno es:" + alumno.ApellidoMaterno);
+                //    Console.WriteLine("La fecha de nacimiento del alumno es:" + alumno.FechaNacimiento);
+                //    Console.WriteLine("El genero del alumno es:" + alumno.Genero);
+                //    Console.WriteLine("El Semestre del alumno es:" + alumno.Semestre.IdSemestre);
+                //    Console.WriteLine("----------------------------------------------------------");
+                //}
             }
         }
     }
