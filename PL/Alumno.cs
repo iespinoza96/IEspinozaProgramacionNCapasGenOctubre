@@ -12,8 +12,6 @@ namespace PL
         {
             ML.Alumno alumno = new ML.Alumno(); //Instancia
 
-            
-
             Console.WriteLine("Por favor ingrese los datos del alumno");
             Console.WriteLine("Nombre: ");
             alumno.Nombre = Console.ReadLine();
@@ -21,10 +19,10 @@ namespace PL
             alumno.ApellidoPaterno = Console.ReadLine();
             Console.WriteLine("Apellido Materno: ");
             alumno.ApellidoMaterno = Console.ReadLine();
-            Console.WriteLine("Fecha Nacimiento (yyyy-MM-dd): ");
+            Console.WriteLine("Fecha Nacimiento (dd-MM-yyyy): ");
             alumno.FechaNacimiento = Console.ReadLine();
             Console.WriteLine("Genero (M-F):  ");
-            alumno.Genero = char.Parse(Console.ReadLine());
+            alumno.Genero = Console.ReadLine();
 
             Console.WriteLine("Ingrese el semestre:  ");
             alumno.Semestre = new ML.Semestre();
@@ -33,8 +31,9 @@ namespace PL
 
             //llenamos el objeto de informacion 
 
-            //ML.Result result = BL.Alumno.Add(alumno);//enviamos el objeto con informacion 
-            ML.Result result = BL.Alumno.AddSP(alumno);//enviamos el objeto con informacion 
+            //ML.Result result = BL.Alumno.Add(alumno);//Query
+            //ML.Result result = BL.Alumno.AddSP(alumno);//SP
+            ML.Result result = BL.Alumno.AddEF(alumno);//EF
 
             if (result.Correct)
             {

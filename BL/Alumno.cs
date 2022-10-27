@@ -168,7 +168,7 @@ namespace BL
                                 alumno.ApellidoPaterno = row[2].ToString();
                                 alumno.ApellidoMaterno = row[3].ToString();
                                 alumno.FechaNacimiento = row[4].ToString();
-                                alumno.Genero = char.Parse(row[5].ToString());
+                                alumno.Genero = row[5].ToString();
 
                                 alumno.Semestre = new ML.Semestre();
                                 alumno.Semestre.IdSemestre = byte.Parse(row[6].ToString());
@@ -239,7 +239,7 @@ namespace BL
                             alumno.ApellidoPaterno = row[2].ToString();
                             alumno.ApellidoMaterno = row[3].ToString();
                             alumno.FechaNacimiento = row[4].ToString();
-                            alumno.Genero = char.Parse(row[5].ToString());
+                            alumno.Genero = row[5].ToString();
 
                             alumno.Semestre = new ML.Semestre();
                             alumno.Semestre.IdSemestre = byte.Parse(row[6].ToString());
@@ -269,6 +269,37 @@ namespace BL
             }//manejo de excepciones 
 
             return result;
+        }
+
+        // EF
+
+        public static ML.Result AddEF(ML.Alumno alumno)
+        {
+            ML.Result result = new ML.Result();
+            try
+            {
+                using (DL_EF.IEspinozaProgramacionNCapasGenOctubreEntities context = new DL_EF.IEspinozaProgramacionNCapasGenOctubreEntities())
+                {
+                    int query = context.AlumnoAdd(alumno.Nombre, alumno.ApellidoPaterno, alumno.ApellidoMaterno, alumno.FechaNacimiento, alumno.Genero, alumno.Semestre.IdSemestre);
+
+                    if (query > 0)
+                    {
+                        result.Message = "Alumno agregado con exito";
+                    }
+                    
+                }
+                result.Correct = true;
+            }//codigo que puede causar una excepcion 
+            catch (Exception ex)
+            {
+                result.Correct = false;
+                result.Ex = ex;
+                result.Message = "Ocurrio un error al insertar el alumno" + result.Ex;
+
+                throw;
+            }//manejo de excepciones 
+            return result;
+
         }
 
 
