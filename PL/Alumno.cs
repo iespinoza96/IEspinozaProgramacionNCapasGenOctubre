@@ -43,7 +43,8 @@ namespace PL
 
         public static void GetAll()
         {
-            ML.Result result = BL.Alumno.GetAll();
+            //ML.Result result = BL.Alumno.GetAll();
+            ML.Result result = BL.Alumno.GetAllEF();
 
             if (result.Correct)
             {
@@ -70,7 +71,8 @@ namespace PL
             Console.WriteLine("Por favor ingrese el id del alumno");
             Console.WriteLine("IdAlumno: ");
             alumno.IdAlumno = int.Parse(Console.ReadLine());
-            ML.Result result = BL.Alumno.GetById(alumno.IdAlumno);
+            //ML.Result result = BL.Alumno.GetById(alumno.IdAlumno);
+            ML.Result result = BL.Alumno.GetByIdEF(alumno.IdAlumno);
 
             if (result.Correct)
             {

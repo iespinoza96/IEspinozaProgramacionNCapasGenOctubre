@@ -272,7 +272,6 @@ namespace BL
         }
 
         // EF
-
         public static ML.Result AddEF(ML.Alumno alumno)
         {
             ML.Result result = new ML.Result();
@@ -286,7 +285,7 @@ namespace BL
                     {
                         result.Message = "Alumno agregado con exito";
                     }
-                    
+
                 }
                 result.Correct = true;
             }//codigo que puede causar una excepcion 
@@ -300,6 +299,109 @@ namespace BL
             }//manejo de excepciones 
             return result;
 
+        }
+
+        public static ML.Result GetAllEF()
+        {
+            ML.Result result = new ML.Result();
+            try
+            {
+                using (DL_EF.IEspinozaProgramacionNCapasGenOctubreEntities context = new DL_EF.IEspinozaProgramacionNCapasGenOctubreEntities())
+                {
+                    //var query = context.AlumnoGetAll();
+                    var query = context.AlumnoGetAll().ToList();
+
+                    if (query != null)
+                    {
+                        result.Objects = new List<object>();
+
+                        foreach (var row in query)
+                        {
+                            ML.Alumno alumno = new ML.Alumno();
+
+                            alumno.IdAlumno = row.IdAlumno;
+                            alumno.Nombre = row.Nombre;
+                            alumno.ApellidoPaterno = row.ApellidoPaterno;
+                            alumno.ApellidoMaterno = row.ApellidoMaterno;
+                            alumno.FechaNacimiento = row.FechaNacimiento.Value.ToString("dd-MM-yyyy");
+                            alumno.Genero = row.Genero;
+
+                            alumno.Semestre = new ML.Semestre();
+                            alumno.Semestre.IdSemestre = row.IdSemestre.Value;
+
+                            result.Objects.Add(alumno); //boxing y unboxing
+
+                        }
+                    }
+
+                }
+                result.Correct = true;
+            }//codigo que puede causar una excepcion 
+            catch (Exception ex)
+            {
+                result.Correct = false;
+                result.Ex = ex;
+                result.Message = "Ocurrio un error al insertar el alumno" + result.Ex;
+
+                throw;
+            }//manejo de excepciones 
+
+            return result;
+        }
+
+        public static ML.Result GetByIdEF(int idAlumno)
+        {
+            ML.Result result = new ML.Result();
+            try
+            {
+                using (DL_EF.IEspinozaProgramacionNCapasGenOctubreEntities context = new DL_EF.IEspinozaProgramacionNCapasGenOctubreEntities())
+                {
+
+                    //var query = context.AlumnoGetById(idAlumno).First();
+                    var query = context.AlumnoGetById(idAlumno).FirstOrDefault();
+
+                    //var query = context.AlumnoGetById(idAlumno).Single();
+                    //var query = context.AlumnoGetById(idAlumno).SingleOrDefault();
+
+                    if (query != null)
+                    {
+
+                        ML.Alumno alumno = new ML.Alumno();
+
+                        alumno.IdAlumno = query.IdAlumno;
+                        alumno.Nombre = query.Nombre;
+                        alumno.ApellidoPaterno = query.ApellidoPaterno;
+                        alumno.ApellidoMaterno = query.ApellidoMaterno;
+                        alumno.FechaNacimiento = query.FechaNacimiento.Value.ToString("dd-MM-yyyy");
+                        alumno.Genero = query.Genero;
+
+                        alumno.Semestre = new ML.Semestre();
+                        alumno.Semestre.IdSemestre = query.IdSemestre.Value;
+
+                        result.Object = alumno; //boxing y unboxing
+
+
+                    }
+
+                }
+                result.Correct = true;
+
+
+
+                result.Correct = true;
+
+
+            }//codigo que puede causar una excepcion 
+            catch (Exception ex)
+            {
+                result.Correct = false;
+                result.Ex = ex;
+                result.Message = "Ocurrio un error al insertar el alumno" + result.Ex;
+
+                throw;
+            }//manejo de excepciones 
+
+            return result;
         }
 
 
