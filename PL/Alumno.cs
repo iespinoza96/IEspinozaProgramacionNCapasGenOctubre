@@ -33,7 +33,7 @@ namespace PL
 
             //ML.Result result = BL.Alumno.Add(alumno);//Query
             //ML.Result result = BL.Alumno.AddSP(alumno);//SP
-            ML.Result result = BL.Alumno.AddEF(alumno);//EF
+            ML.Result result = BL.Alumno.AddLINQ(alumno);//EF
 
             if (result.Correct)
             {
@@ -44,7 +44,8 @@ namespace PL
         public static void GetAll()
         {
             //ML.Result result = BL.Alumno.GetAll();
-            ML.Result result = BL.Alumno.GetAllEF();
+            //ML.Result result = BL.Alumno.GetAllEF();
+            ML.Result result = BL.Alumno.GetAllLINQ();
 
             if (result.Correct)
             {

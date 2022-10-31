@@ -6,6 +6,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace BL
@@ -403,6 +404,123 @@ namespace BL
 
             return result;
         }
+
+        //LINQ
+
+        public static ML.Result AddLINQ(ML.Alumno alumno)
+        {
+            ML.Result result = new ML.Result();
+            try
+            {
+                using (DL_EF.IEspinozaProgramacionNCapasGenOctubreEntities context = new DL_EF.IEspinozaProgramacionNCapasGenOctubreEntities())
+                {
+                    //DL.Grupo grupoDL = new DL.Grupo();
+                    DL_EF.Alumno alumnoDL = new DL_EF.Alumno();
+
+                    alumnoDL.Nombre = alumno.Nombre;
+                    alumnoDL.ApellidoPaterno = alumno.ApellidoPaterno;
+                    alumnoDL.ApellidoMaterno = alumno.ApellidoMaterno;
+                    alumnoDL.FechaNacimiento = DateTime.Parse(alumno.FechaNacimiento);
+                    alumnoDL.Genero = alumno.Genero;
+                    alumnoDL.IdSemestre = alumno.Semestre.IdSemestre;
+                    
+
+                    context.Alumnoes.Add(alumnoDL);
+                    context.SaveChanges();
+
+
+                }
+                result.Correct = true;
+            }//codigo que puede causar una excepcion 
+            catch (Exception ex)
+            {
+                result.Correct = false;
+                result.Ex = ex;
+                result.Message = "Ocurrio un error al insertar el alumno" + result.Ex;
+
+                throw;
+            }//manejo de excepciones 
+            return result;
+
+        }
+
+        public static ML.Result GetAllLINQ(int idAlumno)
+        {
+            ML.Result result = new ML.Result();
+            try
+            {
+                using (DL_EF.IEspinozaProgramacionNCapasGenOctubreEntities context = new DL_EF.IEspinozaProgramacionNCapasGenOctubreEntities())
+                {
+                    //var query = context.AlumnoGetAll();
+                    //var query = context.AlumnoGetAll().ToList();
+                    //var query = (from alumnoLINQ in context.Alumnoes select alumnoLINQ);
+                    var query = (from alumnoLINQ in context.Alumnoes
+
+                                 select new {
+
+                                     IdAlumno = alumnoLINQ.IdAlumno,
+                              
+                                     Nombre = alumnoLINQ.Nombre, 
+                                     ApellidoPaterno = alumnoLINQ.ApellidoPaterno, 
+                                     ApellidoMaterno = alumnoLINQ.ApellidoMaterno,
+                                     FechaNacimiento = alumnoLINQ.FechaNacimiento,
+                                     Genero = alumnoLINQ.Genero,
+                                     IdSemestre = alumnoLINQ.IdSemestre
+                                 });
+                    //var query = (from alumnoLINQ in context.Alumnoes
+                    //             where alumnoLINQ.IdAlumno == idAlumno
+                    //             select new
+                    //             {
+
+                    //                 IdAlumno = alumnoLINQ.IdAlumno,
+
+                    //                 Nombre = alumnoLINQ.Nombre,
+                    //                 ApellidoPaterno = alumnoLINQ.ApellidoPaterno,
+                    //                 ApellidoMaterno = alumnoLINQ.ApellidoMaterno,
+                    //                 FechaNacimiento = alumnoLINQ.FechaNacimiento,
+                    //                 Genero = alumnoLINQ.Genero,
+                    //                 IdSemestre = alumnoLINQ.IdSemestre
+                    //             }); //GETBYID 
+
+                    if (query != null && query.ToList().Count > 0)
+                    {
+                        result.Objects = new List<object>();
+
+                        foreach (var row in query)
+                        {
+                            ML.Alumno alumno = new ML.Alumno();
+
+                            alumno.IdAlumno = row.IdAlumno;
+                            alumno.Nombre = row.Nombre;
+                            alumno.ApellidoPaterno = row.ApellidoPaterno;
+                            alumno.ApellidoMaterno = row.ApellidoMaterno;
+                            alumno.FechaNacimiento = row.FechaNacimiento.Value.ToString("dd-MM-yyyy");
+                            alumno.Genero = row.Genero;
+
+                            alumno.Semestre = new ML.Semestre();
+                            alumno.Semestre.IdSemestre = row.IdSemestre.Value;
+
+                            result.Objects.Add(alumno); //boxing y unboxing
+
+                        }
+                    }
+
+                }
+                result.Correct = true;
+            }//codigo que puede causar una excepcion 
+            catch (Exception ex)
+            {
+                result.Correct = false;
+                result.Ex = ex;
+                result.Message = "Ocurrio un error al insertar el alumno" + result.Ex;
+
+                throw;
+            }//manejo de excepciones 
+
+            return result;
+        }
+
+
 
 
     }
