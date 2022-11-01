@@ -444,7 +444,7 @@ namespace BL
 
         }
 
-        public static ML.Result GetAllLINQ(int idAlumno)
+        public static ML.Result GetAllLINQ()
         {
             ML.Result result = new ML.Result();
             try
