@@ -379,7 +379,7 @@ namespace BL
                         alumno.Semestre = new ML.Semestre();
                         alumno.Semestre.IdSemestre = query.IdSemestre.Value;
 
-                        result.Object = alumno; //boxing y unboxing
+                        result.Object = alumno; //boxing 
 
 
                     }
