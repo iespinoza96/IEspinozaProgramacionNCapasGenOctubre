@@ -12,7 +12,8 @@
 
     <div class="row">
         <div style="float:right">
-            @Html.ActionLink("+", "Form", "Usuario", htmlAttributes: new { @class = "btn btn-success" })
+            @Html.ActionLink("+", "Form", "Alumno", htmlAttributes: new { @class = "btn btn-success" })
+
         </div>
     </div>
 
@@ -45,7 +46,8 @@
                             <td></td>*@
                         <td>@alumno.FechaNacimiento</td>
                         <td>@alumno.Genero</td>
-                        <td>@alumno.Semestre.IdSemestre</td>
+                        <td class="hidden">@alumno.Semestre.IdSemestre</td>
+                        <td >@alumno.Semestre.Nombre</td>
                         <td class="text-center"><a class="btn btn-danger glyphicon glyphicon-trash" href="@Url.Action("Delete", "Alumno", new { IdAlumno = alumno.IdAlumno })" onclick="return confirm('Estas seguro que deseas eliminar este registro?');"></a></td>
 
 

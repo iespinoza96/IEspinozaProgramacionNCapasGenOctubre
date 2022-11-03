@@ -329,6 +329,7 @@ namespace BL
 
                             alumno.Semestre = new ML.Semestre();
                             alumno.Semestre.IdSemestre = row.IdSemestre.Value;
+                            alumno.Semestre.Nombre = row.SemestreNombre;
 
                             result.Objects.Add(alumno); //boxing y unboxing
 

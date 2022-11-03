@@ -20,5 +20,6 @@ namespace DL_EF
         public Nullable<System.DateTime> FechaNacimiento { get; set; }
         public string Genero { get; set; }
         public Nullable<byte> IdSemestre { get; set; }
+        public string SemestreNombre { get; set; }
     }
 }

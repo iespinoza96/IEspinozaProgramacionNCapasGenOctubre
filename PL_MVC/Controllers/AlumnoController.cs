@@ -71,12 +71,29 @@ namespace PL_MVC.Controllers
             {
                 //add
                 //ml.result = agergar
+                ML.Result result = BL.Alumno.AddEF(alumno);
+
+                if (result.Correct)
+                {
+                    ViewBag.Message = result.Message;
+                }
+                else
+                {
+                    ViewBag.Message = "Error: " + result.Message;
+                }
             }
             else
             {
-                //update
-                //ml.result = update
-                //if
+                ML.Result result = BL.Alumno.AddEF(alumno);
+
+                if (result.Correct)
+                {
+                    ViewBag.Message = result.Message;
+                }
+                else
+                {
+                    ViewBag.Message = "Error: " + result.Message;
+                }
             }
 
             return PartialView("Modal");
