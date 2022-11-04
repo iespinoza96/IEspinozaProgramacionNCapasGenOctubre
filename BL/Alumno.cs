@@ -343,7 +343,7 @@ namespace BL
             {
                 result.Correct = false;
                 result.Ex = ex;
-                result.Message = "Ocurrio un error al insertar el alumno" + result.Ex;
+                result.Message = "Ocurrio un error al consultar la tabla alumno" + result.Ex;
 
                 throw;
             }//manejo de excepciones 

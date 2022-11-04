@@ -48,6 +48,7 @@
         <Function Name="AlumnoGetById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="IdAlumno" Type="int" Mode="In" />
         </Function>
+        <Function Name="SemestreGetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="IEspinozaProgramacionNCapasGenOctubreModelStoreContainer">
           <EntitySet Name="Alumno" EntityType="Self.Alumno" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Semestre" EntityType="Self.Semestre" Schema="dbo" store:Type="Tables" />
@@ -112,6 +113,7 @@
           <Parameter Name="IdAlumno" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="AlumnoGetAll" ReturnType="Collection(IEspinozaProgramacionNCapasGenOctubreModel.AlumnoGetAll_Result)" />
+          <FunctionImport Name="SemestreGetAll" ReturnType="Collection(IEspinozaProgramacionNCapasGenOctubreModel.SemestreGetAll_Result)" />
         </EntityContainer>
         <ComplexType Name="AlumnoGetById_Result">
           <Property Type="Int32" Name="IdAlumno" Nullable="false" />
@@ -131,6 +133,10 @@
           <Property Type="String" Name="Genero" Nullable="true" MaxLength="1" />
           <Property Type="Byte" Name="IdSemestre" Nullable="true" />
           <Property Type="String" Name="SemestreNombre" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="SemestreGetAll_Result">
+          <Property Type="Byte" Name="IdSemestre" Nullable="false" />
+          <Property Type="String" Name="Nombre" Nullable="true" MaxLength="50" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -184,6 +190,14 @@
                 <ScalarProperty Name="Genero" ColumnName="Genero" />
                 <ScalarProperty Name="IdSemestre" ColumnName="IdSemestre" />
                 <ScalarProperty Name="SemestreNombre" ColumnName="SemestreNombre" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SemestreGetAll" FunctionName="IEspinozaProgramacionNCapasGenOctubreModel.Store.SemestreGetAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="IEspinozaProgramacionNCapasGenOctubreModel.SemestreGetAll_Result">
+                <ScalarProperty Name="IdSemestre" ColumnName="IdSemestre" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

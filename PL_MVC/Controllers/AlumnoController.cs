@@ -39,17 +39,20 @@ namespace PL_MVC.Controllers
         [HttpGet]
         public ActionResult Form(int? IdAlumno)
         {
+            ML.Result resultSemestre = BL.Semestre.GetAll();
+            ML.Alumno alumno = new ML.Alumno();
+            alumno.Semestre = new ML.Semestre();
             if (IdAlumno == null)
             {
-                //
-                return View();
+                alumno.Semestre.Semestres = resultSemestre.Objects;
+                return View(alumno);
             }
             else
             {
                 
                 //GetbyId
                 ML.Result result = BL.Alumno.GetByIdEF(IdAlumno.Value);
-                ML.Alumno alumno = new ML.Alumno();
+                
                 if (result.Correct)
                 {
                     alumno = (ML.Alumno)result.Object;
