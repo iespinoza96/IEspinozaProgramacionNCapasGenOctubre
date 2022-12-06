@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DL_EF", "DL_EF\DL_EF.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PL_MVC", "PL_MVC\PL_MVC.csproj", "{2E4F23E0-E283-4B9B-8FFA-1E1C5E06396C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SL_WCF", "SL_WCF\SL_WCF.csproj", "{02A3EA86-AABE-437F-B0E1-296A7D2D3946}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{2E4F23E0-E283-4B9B-8FFA-1E1C5E06396C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2E4F23E0-E283-4B9B-8FFA-1E1C5E06396C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2E4F23E0-E283-4B9B-8FFA-1E1C5E06396C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02A3EA86-AABE-437F-B0E1-296A7D2D3946}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02A3EA86-AABE-437F-B0E1-296A7D2D3946}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02A3EA86-AABE-437F-B0E1-296A7D2D3946}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02A3EA86-AABE-437F-B0E1-296A7D2D3946}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

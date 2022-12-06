@@ -18,6 +18,7 @@ namespace BL
             ML.Result result = new ML.Result();
             try
             {
+               
                 using (SqlConnection context = new SqlConnection(DL.Conexion.GetConexion()))
                 {
                     string query = "INSERT INTO[Alumno]([Nombre],[ApellidoPaterno],[ApellidoMaterno],[FechaNacimiento],[Genero])VALUES(@Nombre, @ApellidoPaterno, @ApellidoMaterno, @FechaNacimiento, @Genero)";
@@ -310,6 +311,8 @@ namespace BL
                 using (DL_EF.IEspinozaProgramacionNCapasGenOctubreEntities context = new DL_EF.IEspinozaProgramacionNCapasGenOctubreEntities())
                 {
                     //var query = context.AlumnoGetAll();
+                    //alumno.Nombre = (alumno.Nombre == null) ? "" : alumno.Nombre;
+                    
                     var query = context.AlumnoGetAll().ToList();
 
                     if (query != null)

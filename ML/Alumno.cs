@@ -15,7 +15,6 @@ namespace ML
         public string FechaNacimiento { get; set; }
         public string Genero { get; set; }
         public ML.Semestre Semestre { get; set; } //propiedad de navegacion
-
         public List<object> Alumnos { get; set; }
 
         //public byte IdSemestre { get; set; }

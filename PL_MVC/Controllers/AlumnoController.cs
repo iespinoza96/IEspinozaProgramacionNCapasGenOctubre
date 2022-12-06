@@ -21,8 +21,9 @@ namespace PL_MVC.Controllers
         [HttpGet]
         public ActionResult GetAll()
         {
+            ML.Alumno alumno = new ML.Alumno();
             ML.Result result = BL.Alumno.GetAllEF();
-            ML.Alumno alumno = new ML.Alumno(); 
+             
             if (result.Correct)
             {
                 alumno.Alumnos = result.Objects;
@@ -41,7 +42,7 @@ namespace PL_MVC.Controllers
         {
             ML.Result resultSemestre = BL.Semestre.GetAll();
             ML.Alumno alumno = new ML.Alumno();
-            alumno.Semestre = new ML.Semestre();
+            alumno.Semestre = new ML.Semestre();//inicializando
             if (IdAlumno == null)
             {
                 alumno.Semestre.Semestres = resultSemestre.Objects;
